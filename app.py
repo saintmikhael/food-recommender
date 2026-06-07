@@ -17,15 +17,14 @@ def clean_ingredients(ingredient_str):
 
 @st.cache_resource
 def load_models():
-    model = pickle.load(open('model.pkl', 'rb'))
-    tfidf = pickle.load(open('tfidf.pkl', 'rb'))
-    scaler = pickle.load(open('scaler.pkl', 'rb'))
-    recipes = pickle.load(open('recipes.pkl', 'rb'))
-    # Regenerate ingredients_clean
+    import os
+    base_path = os.path.dirname(os.path.abspath(__file__))
+    model = pickle.load(open(os.path.join(base_path, 'model.pkl'), 'rb'))
+    tfidf = pickle.load(open(os.path.join(base_path, 'tfidf.pkl'), 'rb'))
+    scaler = pickle.load(open(os.path.join(base_path, 'scaler.pkl'), 'rb'))
+    recipes = pickle.load(open(os.path.join(base_path, 'recipes.pkl'), 'rb'))
     recipes['ingredients_clean'] = recipes['ingredients'].apply(clean_ingredients)
     return model, tfidf, scaler, recipes
-
-model, tfidf, scaler, recipes = load_models()
 
 
 def clean_input(text):
