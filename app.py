@@ -26,6 +26,7 @@ def load_models():
     recipes['ingredients_clean'] = recipes['ingredients'].apply(clean_ingredients)
     return model, tfidf, scaler, recipes
 
+model, tfidf, scaler, recipes = load_models()
 
 def clean_input(text):
     return text.lower().strip()
